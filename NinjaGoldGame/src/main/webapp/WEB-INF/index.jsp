@@ -54,30 +54,9 @@
 	
 	<div>
 		<h1>Activities:</h1>
-		
+		<iframe src="/view" title="activities Iframe" width=500px></iframe> 
 		<!-- iFrame do not accept color -->
- 		<iframe 
- 			srcdoc=" 
- 		<!-- Extract Message -->	
-		<c:forEach var="message" items="${messages}" > 
- 			<p> <c:out value="${message}"/></p> 
- 		</c:forEach> 
- 		<!-- ... -->
-		" width=500px> 
-		</iframe> 
-		
-		
-		<!-- Extract Message -->
-		<c:forEach var="message" items="${messages}" >
-			<p style="color:	
-			<c:if test="${message.contains('won')}">green</c:if> 			
- 			<c:if test="${!message.contains('won')}">red</c:if> 
-		
-			">
-			<c:out value="${message}"></c:out>
-			</p>
-		</c:forEach>
-		<!-- ... -->
+
 	</div>
 </body>
 </html>

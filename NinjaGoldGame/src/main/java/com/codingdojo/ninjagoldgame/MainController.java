@@ -19,7 +19,12 @@ public class MainController {
 	public String index() {
 		return "index.jsp";
 	}
-
+	
+	@RequestMapping("/view")
+	public String activities() {
+		return "view.jsp";
+	}
+	
 	@RequestMapping("/play")
 	public String play(@RequestParam(value = "playerChoice") String playerChoice, HttpSession session,RedirectAttributes redirectAttributes) {
 		System.out.println("playerChoice :"+playerChoice);
@@ -67,6 +72,8 @@ public class MainController {
 	
 		return "redirect:/";
 	}
+	
+	
 
 	private Integer random(Integer min, Integer max) {
 		//System.out.println(Math.random());
