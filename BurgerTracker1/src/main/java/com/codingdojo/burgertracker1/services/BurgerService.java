@@ -30,7 +30,8 @@ public class BurgerService {
 			return optionalBurger.get();
 		}
 	}
-
+	
+	// business logic update is simply saving new instance as new row and not updating !!
 	public Burger update(Burger burger) {
 		return burgerRepo.save(burger);
 	}
