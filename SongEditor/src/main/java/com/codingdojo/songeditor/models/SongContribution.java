@@ -7,6 +7,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
@@ -28,13 +29,13 @@ public class SongContribution {
 	// User may have many contribution
 	// Contribution has a unique user
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinTable(name = "contributor_id")
+	@JoinColumn(name = "contributor_id")
 	private User contributor;
 
 	// Song may have many contribution
 	// Contribution has a unique song
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinTable(name = "song_id")
+	@JoinColumn(name = "song_id")
 	private Song song;
 
 // zero-args constructor
