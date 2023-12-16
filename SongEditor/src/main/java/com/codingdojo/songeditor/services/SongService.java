@@ -43,6 +43,8 @@ public class SongService {
 	public void deleteById(Long id) {
 		Optional<Song> optional = songRepo.findById(id);
 		if (optional.isPresent()) {
+			// set all contribution to null 
+			
 			songRepo.deleteById(id);
 		}
 	}

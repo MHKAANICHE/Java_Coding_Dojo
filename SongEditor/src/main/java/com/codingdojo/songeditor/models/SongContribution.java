@@ -27,18 +27,25 @@ public class SongContribution {
 // relational 
 	// User may have many contribution
 	// Contribution has a unique user
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinTable(name="contributor_id")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinTable(name = "contributor_id")
 	private User contributor;
-	
+
 	// Song may have many contribution
-	// Contribution has a unique song 
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinTable(name="song_id")
+	// Contribution has a unique song
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinTable(name = "song_id")
 	private Song song;
 
 // zero-args constructor
 	public SongContribution() {
+	}
+
+// full-args constructor 
+	public SongContribution(User user,Song song, String contribution) {
+		this.contribution = contribution;
+		this.contributor = user;
+		this.song = song;
 	}
 
 	@PrePersist
@@ -100,9 +107,5 @@ public class SongContribution {
 	public void setSong(Song song) {
 		this.song = song;
 	}
-
-
-
-
 
 }

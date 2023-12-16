@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -27,11 +28,11 @@ public class Song {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@NotEmpty(message = "Tite is required!.")
-	@Column(unique = true)
+//	@Column(unique = true)
 	private String title;
 	@NotEmpty(message = "Genre is required!.")
 	private String genre;
-	//@NotEmpty(message = "Lyrics are required!.")
+	@NotEmpty(message = "Lyrics are required!.")
 	private String lyrics;
 // timestamps : 
 	@Column(updatable = false)
@@ -50,7 +51,8 @@ public class Song {
 
 	// Song may have many contribution
 	// Contribution has a unique song  
-	@OneToMany(mappedBy = "song", fetch = FetchType.LAZY)
+	// it's safe to use cascadeType.ALL in this case (delete song and all contributions associated with)
+	@OneToMany(mappedBy = "song", fetch = FetchType.LAZY,cascade = CascadeType.ALL , orphanRemoval = true)
 	private List<SongContribution> songContributions;	
 
 // zero-args constructor
@@ -100,7 +102,7 @@ public class Song {
 	}
 
 	public void setLyrics(String lyrics) {
-		lyrics = lyrics;
+		this.lyrics = lyrics;
 	}
 
 	public Date getCraetedAt() {
