@@ -35,26 +35,16 @@
 		<h1>Top Songs</h1>
 
 		<div class="container" style="padding: 20px; min-height: 400px">
+		<c:forEach begin="0" end="10" step="1" var="song" items="${songsRated }">
 			<h3>
-				<span>{song.id}</span> <span> - </span> <span><a href="/#">{song.title}</a></span>
-				<span> - </span> <span>{song.artist}</span>
-			</h3>
-			<h3>
-				<span>{song.id}</span> <span> - </span> <span><a href="/#">{song.title}</a></span>
-				<span> - </span> <span>{song.artist}</span>
-			</h3>
-			<h3>
-				<span>{song.id}</span> <span> - </span> <span><a href="/#">{song.title}</a></span>
-				<span> - </span> <span>{song.artist}</span>
-			</h3>
-			<h3>
-				<span>{song.id}</span> <span> - </span> <span><a href="/#">{song.title}</a></span>
-				<span> - </span> <span>{song.artist}</span>
-			</h3>
+				<span>${song.id}</span> <span> - </span> <span><a href="/songs/${song.title}">${song.title}</a></span>
+				<span> - </span> <span>${song.artist}</span>
+			</h3>		
+		</c:forEach>
 		</div>
 	</div>
 	<div class="container">
-		<a href="#">Dashboard</a>
+		<a href="/dash">Dashboard</a>
 	</div>
 
 

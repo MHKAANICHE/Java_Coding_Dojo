@@ -39,21 +39,21 @@
 		<table style="min-height: 200px">
 			<tr >
 				<td>Title:</td>
-				<td>Fake Love</td>
+				<td><c:out value= "${song.title}"/></td>
 			</tr>
 			<tr>
 				<td>Artist:</td>
-				<td>Drake</td>
+				<td><c:out value= "${song.artist}"/></td>
 			</tr>
 			<tr>
 				<td>Rating:</td>
-				<td>7</td>
+				<td><c:out value= "${song.rating}"/></td>
 			</tr>
 		</table>
 	</div>
 
 	<div class="container">
-		
+		<a href="/dash">Dashboard</a>
 	</div>
 
 </div>

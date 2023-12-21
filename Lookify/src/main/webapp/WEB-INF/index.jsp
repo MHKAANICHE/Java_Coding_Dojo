@@ -19,12 +19,12 @@
 .square-box {
 	max-width: 600px;
 	min-height: 600px;
-	border: 1px solid #666;
+/* 	border: 1px solid #666; */
 }
 .square-min-box {
 	max-width: 400px;
 	min-height: 200px;
-	border: 1px solid #666;
+/* 	border: 1px solid #666; */
 }
 
 </style>
@@ -40,7 +40,7 @@
 				<h1>Welcome to Lookify!</h1>
 			</div>
 			<div class=" d-flex justify-content-center">
-				<a href="#">Start Looking</a>
+				<a href="/dash">Start Looking</a>
 			</div>
 			</div>
 		</div>

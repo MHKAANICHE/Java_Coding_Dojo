@@ -36,30 +36,31 @@
 <div class="container">	<h1>Add Song</h1> </div>
 <div class="container " style="padding:15px">
 
-	<form class="form-group d-flex ">
+	<form:form action="/saveNew" method="POST" modelAttribute="newSong" 
+	class="form-group d-flex ">
 		<table style="min-width: 400px;
 	min-height: 200px;">
 			<tr >
-				<td><label>Title</label></td>
-				<td ><input type="text" style="min-width: 400px;" /></td>
+				<td><form:label path="title">Title</form:label></td>
+				<td ><form:input type="text" path="title" style="min-width: 400px;" /></td>
 			</tr>
 			<tr >
-				<td><label>Artist</label></td>
-				<td><input type="text" style="min-width: 400px;"/></td>
+				<td><form:label path="artist">Artist</form:label></td>
+				<td><form:input type="text" path="artist" style="min-width: 400px;"/></td>
 			</tr>
 			<tr >
-				<td><label style="min-width: 150px;">Rating(1-10)</label></td>
-				<td><input type="number" style="min-width: 400px;"/></td>
+				<td><form:label style="min-width: 150px;" path="rating">Rating(1-10)</form:label></td>
+				<td><form:input type="number" path="rating" style="min-width: 400px;"/></td>
 			</tr>
 			<tr >
 				<td></td>
 				<td class="d-flex justify-content-end"><input type="submit" value="Add"  class="btn btn-primary shadow p-2 mb-5 rounded  " /></td>
 			</tr>
 		</table>
-	</form>
+	</form:form>
 </div>
 <div class="container">
-	<a href="">Dashboard</a>
+	<a href="/dash">Dashboard</a>
 </div>
 
 

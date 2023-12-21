@@ -33,7 +33,7 @@
 <body style="padding: 20px">
 
 	<div class="contianer">
-		<h1>Song by "${song.artist}"</h1>
+		<h1>Song by "${artist}"</h1>
 	</div>
 
 	<div class="contianer">
@@ -44,27 +44,19 @@
 				<th>Actions</th>
 			</thead>
 			<tbody>
-				<tr>
-					<td><a href="/#">Shape of you</a></td>
-					<td>7</td>
-					<td><a href="/#">delete</a></td>
+			<c:forEach var="song" items="${songs}">
+					<tr>
+					<td><a href="/songs/${song.id}">${song.title}</a></td>
+					<td>${song.rating}</td>
+					<td><a href="/songs/${song.id}/delete">delete</a></td>
 				</tr>
-				<tr>
-					<td><a href="/#">Shape of you</a></td>
-					<td>7</td>
-					<td><a href="/#">delete</a></td>
-				</tr>
-				<tr>
-					<td><a href="/#">Shape of you</a></td>
-					<td>7</td>
-					<td><a href="/#">delete</a></td>
-				</tr>
+			</c:forEach>
 			</tbody>
 		</table>
 	</div>
 
 	<div class="contianer">
-		<a href="/#">Dashboard</a>
+		<a href="/dash">Dashboard</a>
 	</div>
 
 

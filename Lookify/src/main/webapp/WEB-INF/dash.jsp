@@ -36,12 +36,12 @@
 	<!-- Header -->
 	<div class=" container d-flex justify-content-between" style="padding : 10px;">
 		<div>
-			<a href="#">Add New</a> <a href="#">Top Songs</a>
+			<a href="/songs/new">Add New</a> <a href="/songs/top-ten">Top Songs</a>
 		</div>
 		<div>
-			<form>
+			<form action="/search" method="POST">
 				<div class="form-group d-flex">
-					<input type="text" value="your artist name" class="form-control" />
+					<input type="text" value="your artist name" class="form-control" name="artistSearch"/>
 					<input type="submit" value="Search" class="btn btn-primary" />
 				</div>
 			</form>
@@ -57,21 +57,13 @@
 				<th>Actions</th>
 			</thead>
 			<tbody>
-				<tr>
-					<td><a href="#">Shape of you</a></td>
-					<td>8</td>
-					<td><a href="#">delete</a></td>
+			<c:forEach var="song" items="${songs}">
+			<tr>
+					<td><a href="/songs/${song.id}">${song.title}</a></td>
+					<td>${song.rating}</td>
+					<td><a href="/songs/${song.id}/delete">delete</a></td>
 				</tr>
-				<tr>
-					<td><a href="#">Shape of you</a></td>
-					<td>7</td>
-					<td><a href="#">delete</a></td>
-				</tr>
-				<tr>
-					<td><a href="#">Shape of you</a></td>
-					<td>6</td>
-					<td><a href="#">delete</a></td>
-				</tr>
+			</c:forEach>
 			</tbody>
 		</table>
 	</div>
