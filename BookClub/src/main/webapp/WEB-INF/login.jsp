@@ -2,56 +2,35 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page isErrorPage="true"%>
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Login and Register</title>
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-	integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyJPAeDf6qD5uJC5Fb6fFoPsFntG1gQJG"
-	crossorigin="anonymous">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Index</title>
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
+<!-- Your local CSS -->
+<link rel="stylesheet" href="/css/style.css" />
 <style>
-/* Custom styles for the page */
+/* Any additional styles specific to this page */
 body {
-	padding: 20px; /* Add padding for better spacing */
-}
-
-/* Style for the form container */
-.form-container {
-	margin-top: 20px;
-}
-
-/* Style for the buttons */
-input[type="submit"] {
-	margin-top: 10px;
-}
-
-/* Flex container to arrange the two columns side by side */
-.flex-container {
-	display: flex;
-	justify-content: space-between;
-}
-
-/* Header styles */
-.header {
-	text-align: center;
-	padding: 10px;
-	background-color: #007bff; /* Bootstrap primary color */
-	color: #fff;
+	background-color: #ACA9CB;
 }
 </style>
 </head>
 <body>
-	<div class="header">
-		<h1>Welcome to Your Website</h1>
+	<div class="container">
+		<h1 style="color: magenta;">Book Club</h1>
+		<h3>A place for friends to share thoughts on books.</h3>
 	</div>
 
-	<div class="container-fluid">
-		<div class="flex-container">
+	<div class="container">
+		<!-- 	<div class="container-fluid"> -->
+		<div class="row">
+			<!-- 		<div class="flex-container"> -->
 
 			<!-- Login Form Column -->
 			<div class="col-md-6 form-container">
@@ -61,28 +40,28 @@ input[type="submit"] {
 						modelAttribute="newRegister">
 						<tr>
 							<td><form:label path="userName">Enter your user name:</form:label></td>
-							<td><form:input type="text" path="userName" /> <form:errors style="color:red;"
-									path="userName" /></td>
+							<td><form:input type="text" path="userName" /> <form:errors
+									class="error" path="userName" /></td>
 						</tr>
 						<tr>
 							<td><form:label path="email">Enter your email:</form:label></td>
-							<td><form:input type="email" path="email" /> <form:errors style="color:red;"
-									path="email" /></td>
+							<td><form:input type="email" path="email" /> <form:errors
+									class="error" path="email" /></td>
 						</tr>
 						<tr>
 							<td><form:label path="password">Enter your password:</form:label></td>
-							<td><form:input type="" path="password" /> <form:errors style="color:red;"
-									path="password" /></td>
+							<td><form:input type="" path="password" /> <form:errors
+									class="error"  path="password" /></td>
 						</tr>
 						<tr>
 							<td><form:label path="confirmPW">Confirm your password:</form:label></td>
-							<td><form:input type="" path="confirmPW" /> <form:errors style="color:red;"
-									path="confirmPW" /></td>
+							<td ><form:input type="" path="confirmPW" /> <form:errors
+								class="error" path="confirmPW" /></td>
 						</tr>
 						<tr>
 							<td></td>
-							<td><input type="submit" value="Register"
-								class="btn btn-primary" /></td>
+							<td class="d-flex justify-content-end"><input type="submit"
+								value="Register" class="btn btn-primary" /></td>
 						</tr>
 					</form:form>
 				</table>
@@ -96,32 +75,27 @@ input[type="submit"] {
 						modelAttribute="newLoggin">
 						<tr>
 							<td><form:label path="email">Enter your email:</form:label></td>
-							<td><form:input type="text" path="email" />
-								<form:errors style="color:red;" path="email" /></td>
+							<td><form:input type="text" path="email" /> <form:errors
+									class="error" path="email" /></td>
 						</tr>
 						<tr>
 							<td><form:label path="password">Enter your password:</form:label></td>
-							<td><form:input type="" path="password" />
-								<form:errors style="color:red;" path="password" /></td>
+							<td><form:input type="" path="password" /> <form:errors
+									class="error" path="password" /></td>
 						</tr>
 						<tr>
 							<td></td>
-							<td><input type="submit" value="Login"
-								class="btn btn-success" /></td>
+							<td class="d-flex justify-content-end"><input type="submit"
+								value="Login" class="btn btn-success" /></td>
 						</tr>
 					</form:form>
 				</table>
-				</div>
+			</div>
 
-        </div>
-    </div>
+		</div>
+	</div>
 
-    <!-- Add Bootstrap JS and Popper.js scripts if needed -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<!-- For any Bootstrap that uses JS -->
+	<script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>
-
-
-

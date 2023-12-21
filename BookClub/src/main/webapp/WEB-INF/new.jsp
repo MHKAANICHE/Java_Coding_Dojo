@@ -4,21 +4,29 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page isErrorPage="true"%>
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Index</title>
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
+<!-- Your local CSS -->
+<link rel="stylesheet" href="/css/style.css" />
 <style>
-/* Custom styles for the page */
-.error {
-	color: red; /* Add padding for better spacing */
+/* Any additional styles specific to this page */
+body {
+	background-color: #ACA9CB;
 }
 </style>
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
 </head>
 <body>
+	<div class="container">
+	<h3>Add a Book to Your Shelf!</h3>
 	<a href="/dash">back to the shelves</a>
-	<h1>Add a Book to Your Shelf!</h1>
+	</div>
+	<div class="container">
 	<form:form action="/saveNew" method="POST" modelAttribute="newBook">
 		<table>
 			<tr>
@@ -42,5 +50,6 @@
 			</tr>
 		</table>
 	</form:form>
+	</div>
 </body>
 </html>

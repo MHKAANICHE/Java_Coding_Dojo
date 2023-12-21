@@ -4,24 +4,33 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page isErrorPage="true"%>
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Index</title>
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
+<!-- Your local CSS -->
+<link rel="stylesheet" href="/css/style.css" />
+<style>
+/* Any additional styles specific to this page */
+body {
+	background-color: #ACA9CB;
+}
+</style>
 </head>
 <body>
 
-	<div>
+	<div class="container d-flex justify-content-between align-items-center">
 		<h1>
 			<c:out value="${book.title}" />
 		</h1>
-	</div>
-	<div>
 		<a href="/dash">back to the shelves</a>
 	</div>
 
-	<div>
+	<div class="container">
 		<h3>
 			<span style="color: red;"><c:out
 					value="${book.owner.userName}" /></span> <span style="color: black;">
@@ -30,13 +39,13 @@
 				style="color: green;"><c:out value="${book.author}" /></span>
 		</h3>
 	</div>
-	<div>
+	<div class="container">
 		<h3>
 			Here are
 			<c:out value="${book.owner.userName}" />
 			's thoughts:
 		</h3>
-	</div>
+	
 
 
 	<hr />
@@ -44,12 +53,16 @@
 	<hr />
 
 	<c:if test="${isOwner}">
+		<div class="d-flex justify-content-end" >
 		<button
 			onClick="location.href='/book/<c:out value = "${book.id}" />/edit/'"
-			type="submit">edit</button>
-		<form action="/book/<c:out value = "${book.id}" />/delete/" method="POST">
-		<input type="submit" value="delete"/>
-		</form>			
+			type="submit" class="btn btn-primary" style="margin : 5px;">edit</button>
+		<form action="/book/<c:out value = "${book.id}" />/delete/" method="POST" >
+		<input type="submit" value="delete" class="btn btn-danger" style="margin : 5px;"/>
+		</form>
+		</div>		
 	</c:if>
+	
+	</div>
 </body>
 </html>

@@ -42,7 +42,13 @@ public class Book {
 @ManyToOne (fetch=FetchType.LAZY)
 @JoinColumn(name="owner")
 	private User owner;
-
+	
+// Book may have only On (User)	borrower
+// (User) borrower may have many books
+@ManyToOne(fetch=FetchType.LAZY)	
+@JoinColumn(name="borrower")
+	private User borrower;
+	
 // zero-args constructor 
 	public Book() {
 	}
@@ -113,6 +119,14 @@ public class Book {
 
 	public void setOwner(User owner) {
 		this.owner = owner;
+	}
+
+	public User getBorrower() {
+		return borrower;
+	}
+
+	public void setBorrower(User borrower) {
+		this.borrower = borrower;
 	}
 	
 

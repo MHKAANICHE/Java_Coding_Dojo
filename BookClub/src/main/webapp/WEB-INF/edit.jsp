@@ -1,20 +1,33 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ page isErrorPage="true"%>  
-<!DOCTYPE html>
-<html>
+<%@ page isErrorPage="true"%>
+<!doctype html>
+<html lang="en">
 <head>
-<meta charset="ISO-8859-1">
-<title>Edit</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Index</title>
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
+<!-- Your local CSS -->
+<link rel="stylesheet" href="/css/style.css" />
 <style>
-.error{ color: red;}
+/* Any additional styles specific to this page */
+body {
+	background-color: #ACA9CB;
+}
 </style>
 </head>
 <body>
-<a href="/dash">back to the shelves</a>
-	<h1>Change your Entry!</h1>
+<div class="container d-flex justify-content-between">
+	<h1>Change your Entry!</h1>	
+	<a href="/dash">back to the shelves</a>
+	</div>
+<div class="container">
+
 	<form:form action="/saveEditBook" method="POST" modelAttribute="editBook">
 		<table>
 			<form:input type="hidden" path="id" value="${book.id}"/>
@@ -45,9 +58,10 @@
 			</tr>
 			<tr>
 				<td></td>
-				<td><input type="submit" value="Submit" /></td>
+				<td  class="d-flex justify-content-end" ><input type="submit" value="Submit" class="btn btn-primary"/></td>
 			</tr>
 		</table>
 	</form:form >
+</div>
 </body>
 </html>

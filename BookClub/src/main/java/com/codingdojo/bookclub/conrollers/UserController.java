@@ -39,7 +39,7 @@ public class UserController {
 			model.addAttribute("newLoggin", new LoginUser());		
 			return "login.jsp";
 		} else {
-			session.setAttribute("user_id", potentialUser.getId());
+			session.setAttribute("user_session", potentialUser);
 			return "redirect:/dash";
 		}
 	}

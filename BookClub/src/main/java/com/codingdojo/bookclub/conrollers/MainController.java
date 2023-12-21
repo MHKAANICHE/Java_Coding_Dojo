@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.codingdojo.bookclub.models.Book;
 import com.codingdojo.bookclub.models.User;
@@ -32,10 +33,38 @@ public class MainController {
 		if (user == null) {
 			return "redirect:/logout";
 		}
-		
+
 		model.addAttribute("user_name", user.getUserName());
-		model.addAttribute("books", bookServ.getAll());
+		model.addAttribute("user_id", user.getId());
+		model.addAttribute("notBorrowedBooks", bookServ.getAllByBorrowerNot(user));
+		model.addAttribute("borrowedBooks", bookServ.getAllByBorrower(user));
 		return "dash.jsp";
+	}
+
+	@GetMapping("/book/{id}/borrow")
+	public String borrowBook(@PathVariable(name = "id") Long id, HttpSession session) {
+		User user = (User) session.getAttribute("user_session");
+		// No user!
+		if (user == null) {
+			return "redirect:/logout";
+		}
+		Book book = bookServ.getById(id);
+		book.setBorrower(user);
+		bookServ.update(book);
+		return "redirect:/dash";
+	}
+
+	@GetMapping("/book/{id}/return")
+	public String cancelBorrowingBook(@PathVariable(name = "id") Long id, HttpSession session) {
+		User user = (User) session.getAttribute("user_session");
+		// No user!
+		if (user == null) {
+			return "redirect:/logout";
+		}
+		Book book = bookServ.getById(id);
+		book.setBorrower(null);
+		bookServ.update(book);
+		return "redirect:/dash";
 	}
 
 	@GetMapping("/new")
@@ -66,7 +95,7 @@ public class MainController {
 			return "redirect:/dash";
 		}
 	}
-	
+
 	@GetMapping("/show/{id}")
 	public String showBook(@PathVariable("id") Long id, HttpSession session, Model model) {
 		User user = (User) session.getAttribute("user_session");
@@ -105,21 +134,21 @@ public class MainController {
 		if (user == null) {
 			return "redirect:/logout";
 		}
-		
+
 		System.out.println("we are here at -- /saveEditBook! ");
 		if (result.hasErrors()) {
 			System.out.println("Error test did not passed ");
 			model.addAttribute("book", editBook);
 			return "edit.jsp";
 		}
-		System.out.println("Error test passed ");	
+		System.out.println("Error test passed ");
 		editBook.setOwner(user);
 		bookServ.update(editBook);
 		return "redirect:/dash";
 
 	}
 
-	@PostMapping("/book/{id}/delete/")
+	@RequestMapping("/book/{id}/delete/")
 	public String deleteBook(@PathVariable("id") Long id, HttpSession session) {
 		User user = (User) session.getAttribute("user_session");
 		// No user!

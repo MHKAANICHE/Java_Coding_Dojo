@@ -55,12 +55,19 @@ public class User {
 // user may have many Books 
 // (Book) book may have only one (User) owner
 @OneToMany(mappedBy="owner", cascade =CascadeType.ALL,fetch= FetchType.LAZY)
-private List<Book> books;
+private List<Book> ownedBooks;
+
+// user may borrow many books
+// (Book) book may have one one (User) borrower
+@OneToMany(mappedBy="borrower", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+private List<Book> borrowedBooks;
+
 
 // zero-args constructor
 	public User() {
 		//Initialisation 
-		this.books = new ArrayList<>();
+		this.ownedBooks = new ArrayList<>();
+		this.borrowedBooks = new ArrayList<>();
 	}
 
 // Timestamps methods: 
@@ -132,12 +139,20 @@ private List<Book> books;
 		this.updatedAt = updatedAt;
 	}
 
-	public List<Book> getBooks() {
-		return books;
+	public List<Book> getOwnedBooks() {
+		return ownedBooks;
 	}
 
-	public void setBooks(List<Book> books) {
-		this.books = books;
+	public void setOwnedBooks(List<Book> ownedBooks) {
+		this.ownedBooks = ownedBooks;
+	}
+
+	public List<Book> getBorrowedBooks() {
+		return borrowedBooks;
+	}
+
+	public void setBorrowedBooks(List<Book> borrowedBooks) {
+		this.borrowedBooks = borrowedBooks;
 	}
 
 
