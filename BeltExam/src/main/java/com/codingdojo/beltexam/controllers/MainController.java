@@ -98,29 +98,37 @@ public class MainController {
 		}
 	}
 
-	@GetMapping("/classes/{id}")
-	public String showCourse(@PathVariable("id") Long id, @ModelAttribute("newStudent") User newStudent,
-			HttpSession session, Model model) {
-		model.addAttribute("course", courseServ.getCourseById(id));
-		return "show.jsp";
-	}
-
 	@GetMapping("/classes/{id}/delete")
 	public String deleteCourse(@PathVariable("id") Long id, HttpSession session) {
 		courseServ.deleteCourse(id);
 		return "redirect:/classes";
 	}
 
+	@GetMapping("/classes/{id}")
+	public String showCourse(@PathVariable("id") Long id, 
+			HttpSession session, Model model) {
+		model.addAttribute("course", courseServ.getCourseById(id));
+		// Initialise Student obj
+		User newStudent = new User();
+		newStudent.setPassword("student");
+		newStudent.setConfirmPW("student");
+		model.addAttribute("newStudent", newStudent);
+		return "show.jsp";
+	}
+
+	
 	@PostMapping("/saveNewStudent/{course_id}")
 	public String createNewStudent(@PathVariable("course_id") Long course_id,
 			@Valid @ModelAttribute("newStudent") User newStudent, BindingResult result, Model model) {
+
 		if (result.hasErrors()) {
+			model.addAttribute("course", courseServ.getCourseById(course_id));
 			model.addAttribute("newStudent", newStudent);
 			return "show.jsp";
 		} else {
 			// save student
-			newStudent.setPassword("student");
-			newStudent.setConfirmPW("student");
+//			newStudent.setPassword("student");
+//			newStudent.setConfirmPW("student");
 			User student = userServ.createUser(newStudent);
 			Course course = courseServ.getCourseById(course_id);
 			courseServ.addStudent(course, student, result);

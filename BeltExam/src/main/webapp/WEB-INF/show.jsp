@@ -65,6 +65,12 @@ body {
 		<h5>New Student</h5>
 		<form:form action="/saveNewStudent/${course.id}" method="POST" modelAttribute="newStudent">
 			<table>
+			<tr>
+				<td><form:input type="hidden" path="password" />
+				<form:errors path="password" ></form:errors>
+				<td><form:input type="hidden" path="confirmPW" />
+				<form:errors path="confirmPW" ></form:errors>
+			</tr>
 				<tr>
 					<td><form:label path="userName">Student Name:</form:label></td>
 					<td><form:input type="text" path="userName" />
@@ -72,8 +78,8 @@ body {
 				</tr>
 				<tr>
 					<td><form:label path="email">Email:</form:label></td>
-					<td><form:input type="email" path="userName" />
-					<form:errors path="userName" ></form:errors></td>
+					<td><form:input type="email" path="email" />
+					<form:errors path="email" ></form:errors></td>
 				</tr>
 				<tr>
 					<td><</td>
