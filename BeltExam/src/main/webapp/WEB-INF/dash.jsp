@@ -59,13 +59,6 @@ body {
 						</td>					
 					</tr>
 				</c:forEach>
-				<tr>
-					<td><a>Hot Yoga</a> <input type="submit" value="edit" /></td>
-					<td>Duy</td>
-					<td>Wed</td>
-					<td>$15.00</td>
-					<td>5:00AM</td>
-				</tr>
 			</tbody>
 		</table>
 	</div>

@@ -30,10 +30,10 @@ public class MainController {
 	public String home(HttpSession session, Model model) {
 		// Check session
 		User loggedInUser = (User) session.getAttribute("user_session");
-//		if (loggedInUser == null) {
-//			session.invalidate();
-//			return "redirect:/logout"; // Redirect to your login page
-//		}
+		if (loggedInUser == null) {
+			session.invalidate();
+			return "redirect:/logout"; // Redirect to your login page
+		}
 		model.addAttribute("userName", loggedInUser.getUserName());
 		model.addAttribute("userId", loggedInUser.getId());
 		model.addAttribute("courses", courseServ.getAllCourse());
@@ -43,6 +43,11 @@ public class MainController {
 
 	@GetMapping("/classes/new")
 	public String newCourse(@ModelAttribute("newCourse") Course newCourse, HttpSession session) {
+		User loggedInUser = (User) session.getAttribute("user_session");
+		if (loggedInUser == null) {
+			session.invalidate();
+			return "redirect:/logout"; // Redirect to your login page
+		}
 		return "new.jsp";
 	}
 
@@ -51,10 +56,10 @@ public class MainController {
 			HttpSession session, Model model) {
 		// Check session
 		User loggedInUser = (User) session.getAttribute("user_session");
-//				if (loggedInUser == null) {
-//					session.invalidate();
-//					return "redirect:/logout"; // Redirect to your login page
-//				}
+		if (loggedInUser == null) {
+			session.invalidate();
+			return "redirect:/logout"; // Redirect to your login page
+		}
 		if (result.hasErrors()) {
 			model.addAttribute("newCourse", newCourse);
 			return "new.jsp";
@@ -70,10 +75,10 @@ public class MainController {
 			HttpSession session, Model model) {
 		// Check session
 		User loggedInUser = (User) session.getAttribute("user_session");
-//		if (loggedInUser == null) {
-//			session.invalidate();
-//			return "redirect:/logout"; // Redirect to your login page
-//		}
+		if (loggedInUser == null) {
+			session.invalidate();
+			return "redirect:/logout"; // Redirect to your login page
+		}
 
 		model.addAttribute("editCourse", courseServ.getCourseById(id));
 		return "edit.jsp";
@@ -84,10 +89,10 @@ public class MainController {
 			HttpSession session, Model model) {
 		// Check session
 		User loggedInUser = (User) session.getAttribute("user_session");
-//				if (loggedInUser == null) {
-//					session.invalidate();
-//					return "redirect:/logout"; // Redirect to your login page
-//				}
+		if (loggedInUser == null) {
+			session.invalidate();
+			return "redirect:/logout"; // Redirect to your login page
+		}
 
 		if (result.hasErrors()) {
 			model.addAttribute("editCourse", editCourse);
@@ -101,28 +106,49 @@ public class MainController {
 
 	@GetMapping("/classes/{id}/delete")
 	public String deleteCourse(@PathVariable("id") Long id, HttpSession session) {
+		// Check session
+		User loggedInUser = (User) session.getAttribute("user_session");
+		if (loggedInUser == null) {
+			session.invalidate();
+			return "redirect:/logout"; // Redirect to your login page
+		}
 		courseServ.deleteCourse(id);
 		return "redirect:/classes";
 	}
 
 	@GetMapping("/classes/{id}")
-	public String showCourse(@PathVariable("id") Long id, 
-			HttpSession session, Model model) {
-		Course myCourse = courseServ.getCourseById(id);	
+	public String showCourse(@PathVariable("id") Long id, HttpSession session, Model model) {
+
+		// Check session
+		User loggedInUser = (User) session.getAttribute("user_session");
+		if (loggedInUser == null) {
+			session.invalidate();
+			return "redirect:/logout"; // Redirect to your login page
+		}
+
+		Course myCourse = courseServ.getCourseById(id);
 		model.addAttribute("course", courseServ.getCourseById(id));
-		model.addAttribute("notEnrolledStudents",userServ.getStudentNotEnrolledCourse(myCourse));
+		model.addAttribute("notEnrolledStudents", userServ.getStudentNotEnrolledCourse(myCourse));
 		// Initialise Student obj
 		User newStudent = new User();
 		newStudent.setPassword("student");
 		newStudent.setConfirmPW("student");
 		model.addAttribute("newStudent", newStudent);
-		
+
 		return "show.jsp";
 	}
 
 	@PostMapping("/saveNewStudent/{course_id}")
 	public String createNewStudent(@PathVariable("course_id") Long course_id,
-			@Valid @ModelAttribute("newStudent") User newStudent, BindingResult result, Model model) {
+			@Valid @ModelAttribute("newStudent") User newStudent, BindingResult result, HttpSession session,
+			Model model) {
+
+		// Check session
+		User loggedInUser = (User) session.getAttribute("user_session");
+		if (loggedInUser == null) {
+			session.invalidate();
+			return "redirect:/logout"; // Redirect to your login page
+		}
 
 		if (result.hasErrors()) {
 			model.addAttribute("course", courseServ.getCourseById(course_id));
@@ -130,8 +156,6 @@ public class MainController {
 			return "show.jsp";
 		} else {
 			// save student
-//			newStudent.setPassword("student");
-//			newStudent.setConfirmPW("student");
 			User student = userServ.createUser(newStudent);
 			Course course = courseServ.getCourseById(course_id);
 			courseServ.addStudent(course, student);
@@ -141,77 +165,19 @@ public class MainController {
 
 	@PostMapping("/enrollStudent/{course_id}")
 	public String enrollStudentToCourse(@PathVariable("course_id") Long course_id,
-	@RequestParam("student_id") Long student_id) {
+			@RequestParam("student_id") Long student_id, HttpSession session) {
+
+		// Check session
+		User loggedInUser = (User) session.getAttribute("user_session");
+		if (loggedInUser == null) {
+			session.invalidate();
+			return "redirect:/logout"; // Redirect to your login page
+		}
+
 		User student = userServ.getUserById(student_id);
 		Course course = courseServ.getCourseById(course_id);
 		courseServ.addStudent(course, student);
 		return "redirect:/classes/" + course_id;
 	}
-
-//	@GetMapping("/new")
-//	public String newCelebrity(@ModelAttribute("newCelebrity") Course newCelebrity, BindingResult result,
-//			HttpSession session) {
-//		// Check session else logout
-//		User loggedInUser = (User) session.getAttribute("user_session");
-//		if (loggedInUser == null) {
-//			session.invalidate();
-//			return "redirect:/logout"; // Redirect to your login page
-//		}
-//		return "new.jsp";
-//	}
-//
-//	@PostMapping("/saveNawCelebrity")
-//	public String saveNewCelebrity(
-//	@ModelAttribute("newCelebrity") Course newCelebrity, 
-//	BindingResult result,HttpSession session) {
-//		// Check session else logout
-//		User loggedInUser = (User) session.getAttribute("user_session");
-//		if (loggedInUser == null) {
-//			session.invalidate();
-//			return "redirect:/logout"; // Redirect to your login page
-//		}
-//		// User is logged in, proceed with saving the new celebrity
-//		newCelebrity.setOwner(loggedInUser);
-//		clbServ.createCelebrity(newCelebrity);
-//		return "redirect:/dash";
-//	}
-//
-//	@GetMapping("/show")
-//	public String show() {
-//	return"show.jsp";
-//	}
-////	@GetMapping("/show/{id}")
-//	public String showCelebrity(@PathVariable("id")Long id, 
-//	HttpSession session, Model model) {
-//		// Check session else logout
-//				User loggedInUser = (User) session.getAttribute("user_session");
-//				if (loggedInUser == null) {
-//					session.invalidate();
-//					return "redirect:/logout"; // Redirect to your login page
-//				}
-//		// show celebrity
-//			model.addAttribute("celebrity", clbServ.getCelebrityById(id));			
-//		return "show.jsp";
-//	}
-//	
-//	@PostMapping("/follow/celbrities/{clb_id}")
-//	public String addFollower(
-//			@PathVariable("clb_id")Long clb_id,  
-//			HttpSession session) {
-//		// Check session else logout
-//		User loggedInUser = (User) session.getAttribute("user_session");
-//		if (loggedInUser == null) {
-//			session.invalidate();
-//			return "redirect:/logout"; // Redirect to your login page
-//		}
-//		Course celebrity = clbServ.getCelebrityById(clb_id);
-//	    clbServ.addFollower(celebrity,loggedInUser );
-//	return "redirect:/dash";
-//	}
-//
-//	@GetMapping("/edit")
-//	public String editCelebrity() {
-//		return "edit.jsp";
-//	}
 
 }

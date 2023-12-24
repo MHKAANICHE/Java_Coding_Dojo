@@ -24,114 +24,57 @@ body {
 <body>
 	<div
 		class="container d-flex justify-content-between align-items-center">
-		<h1>Create a Course</h1>
-		<a href="/#">Log Out</a>
+		<h1><c:out value="${editCourse.name}" /></h1>
 	</div>
 
+<div class="container">
 <table>
-			<form:form action="/saveNewCourse" method="POST" modelAttribute="editCourse">		
+			<form:form action="/saveEditCourse" method="POST" modelAttribute="editCourse">		
 				<form:input type="hidden" path="id" />
+				
 				<tr>
 					<td><form:label  path="name">Name</form:label>
-						<form:errors class="error" path="name"/></td>
-					<td><form:input type="text" path="name" /></td>
+					</td>
+					<td><form:input type="text" path="name" /><form:errors class="error" path="name"/></td>
 				</tr>
-				<tr>
-					<td><form:label path="dayOfWeek">Day of Week</form:label>
-						<form:errors class="error" path="dayOfWeek"/></td>
-					<td><form:input type="text" path="dayOfWeek" /></td>
-				</tr>
+					<tr>
+				<td><form:label path="dayOfWeek">Day of Week</form:label>
+				 </td>
+				<td><form:select path="dayOfWeek" id="dayOfWeek">
+						<form:option value="">-- Select Day --</form:option>
+						<form:option value="Mon">Monday</form:option>
+						<form:option value="Tue">Tuesday</form:option>
+						<form:option value="Wed">Wednesday</form:option>
+						<form:option value="Thu">Thursday</form:option>
+						<form:option value="Fri">Friday</form:option>
+						<form:option value="Sat">Saturday</form:option>
+						<form:option value="Sun">Sunday</form:option>
+					</form:select><form:errors class="error" path="dayOfWeek" /></td>
+			</tr>
 				<tr>
 					<td><form:label  path="price">Drop-in Price</form:label>
-						<form:errors class="error" path="price"/></td>
-					<td><form:input type="number" path="price" /></td>
+						</td>
+					<td><form:input type="number" path="price" /><form:errors class="error" path="price"/></td>
 				</tr>
 				<tr>
 					<td><form:label path="hour">Time</form:label> 
-					<form:errors class="error" path="hour"/></td>
-					<td><form:input type="time" path="hour" /></td>
+					</td>
+					<td><form:input type="time" path="hour" /><form:errors class="error" path="hour"/></td>
 				</tr>
 				<tr>
 					<td><form:label  path="description">Description:</form:label>
-					<form:errors class="error" path="description"/></td>
-					<td><form:input type="text" path="description" /></td>
+					</td>
+					<td><form:input type="text" path="description" /><form:errors class="error" path="description"/></td>
 				</tr>
 				<tr>
-					<td></td>
+					<td><button type="button" class="btn btn-danger me-2"
+							onclick="location.href='/classes/${editCourse.id}/delete'">Delete</button></td>
 					<td><button type="button" class="btn btn-secondary me-2"
-							onclick="location.href='/dash'">Cancel</button> <input
+							onclick="location.href='/classes'">Cancel</button> <input
 						type="submit" class="btn btn-primary" value="Submit" /></td>
 				</tr>
 				</form:form>
 			</table>
-
-
-
-
-<!-- 	<div class="container mt-3"> -->
-<%-- 		<form:form> --%>
-<!-- 		<div class="row"> -->
-<!-- 			<div class="row"> -->
-<!-- 				<div class="col-md-3"></div> -->
-<!-- 				<div class="col-md-6"> -->
-<!-- 					<span class="error">Error message here</span> -->
-<!-- 				</div> -->
-<!-- 			</div>			 -->
-<!-- 				<div class="row"> -->
-<!-- 					<div class="col-md-3"> -->
-<!-- 						<label for="courseName">Name</label> -->
-<!-- 					</div> -->
-<!-- 					<div class="col-md-6"> -->
-<!-- 						<input type="text" name="courseName" class="form-control" /> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-<!-- 				<div class="row"> -->
-<!-- 					<div class="col-md-3"> -->
-<!-- 						<label for="dayOfWeek">Day of Week</label> -->
-<!-- 					</div> -->
-<!-- 					<div class="col-md-6"> -->
-<!-- 						<input type="text" class="form-control" /> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-
-<!-- 				<div class="row"> -->
-<!-- 					<div class="col-md-3"> -->
-<!-- 						<label for="dropInPrice">Drop-in Price</label> -->
-<!-- 					</div> -->
-<!-- 					<div class="col-md-3"> -->
-<!-- 						<input type="number" class="form-control" /> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-<!-- 				<div class="row"> -->
-<!-- 					<div class="col-md-3"> -->
-<!-- 						<label for="time">Time</label> -->
-<!-- 					</div> -->
-<!-- 					<div class="col-md-3"> -->
-<!-- 						<input type="time" class="form-control" /> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-
-<!-- 				<div class="row"> -->
-<!-- 					<div class="col-md-3"> -->
-<!-- 						<label for="courseDescription">Description</label> -->
-<!-- 					</div> -->
-<!-- 					<div class="col-md-6"> -->
-<!-- 						<textarea name="courseDescription" class="form-control" cols="20" -->
-<!-- 							rows="3"></textarea> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-<!-- 				<div class="row"> -->
-<!-- 					<div class="col-md-3"> -->
-<!-- 						<button type="button" class="btn btn-danger me-2" -->
-<!-- 							onclick="location.href='/dash'">DELETE</button> -->
-<!-- 					</div> -->
-<!-- 					<div class="col-md-6 d-flex justify-content-end align-items-center" -->
-<!-- 						style="margin-top: 10px;"> -->
-<!-- 						<button type="button" class="btn btn-secondary me-2" -->
-<!-- 							onclick="location.href='/dash'">Cancel</button> -->
-<!-- 						<input type="submit" class="btn btn-primary" value="Submit"> -->
-<!-- 					</div> -->
-<%-- 			</form> --%>
-<!-- 		</div> -->
+			</div>
 </body>
 </html>

@@ -24,7 +24,7 @@ body {
 <body>
 	<div
 		class="container d-flex justify-content-between align-items-center">
-		<h3>Gentle Yoga with {instructor.name}</h3>
+		<h3>Gentle Yoga with ${course.instructor.userName}</h3>
 	</div>
 
 	<div class="container mt-4">
@@ -54,123 +54,55 @@ body {
 			<c:forEach var="student" items="${course.students}">
 				<li>${student.userName}-${student.email}</li>
 			</c:forEach>
-			<li>Naomi - onaimo@gmail.com</li>
-			<li>Jim - jim@gmail.com</li>
 		</ul>
 	</div>
 
 	<div class="container mt-4">
-		<h5>Add Students to Course</h5>
-		<br>
-		<h5>New Student</h5>
-		<form:form action="/saveNewStudent/${course.id}" method="POST"
-			modelAttribute="newStudent">
-			<table>
-				<tr>
-					<td><form:input type="hidden" path="password" /> <form:errors
-							path="password"></form:errors>
-					<td><form:input type="hidden" path="confirmPW" /> <form:errors
-							path="confirmPW"></form:errors>
-				</tr>
-				<tr>
-					<td><form:label path="userName">Student Name:</form:label></td>
-					<td><form:input type="text" path="userName" /> <form:errors
-							path="userName"></form:errors></td>
-				</tr>
-				<tr>
-					<td><form:label path="email">Email:</form:label></td>
-					<td><form:input type="email" path="email" /> <form:errors
-							path="email"></form:errors></td>
-				</tr>
-				<tr>
-					<td><</td>
-					<td><input type="submit" value="Add new student" /></td>
-				</tr>
-			</table>
-		</form:form>
+    <h5>Add Students to Course</h5>
+    <br>
 
-		<!-- 		<div class="row"> -->
-		<!-- 			<div class="col-md-6"> -->
-		<%-- 				<form> --%>
-		<!-- 					<h5>New Student</h5> -->
-		<!-- 					<div class="form-group"> -->
-		<!-- 						<div class="row"> -->
-		<!-- 							<div class="col-md-4"> -->
-		<!-- 								<label for="newStudentName">Student Name:</label> -->
-		<!-- 							</div> -->
-		<!-- 							<div class="col-md-8"> -->
-		<!-- 								<input type="text" class="form-control" id="newStudentName"> -->
-		<!-- 							</div> -->
-		<!-- 						</div> -->
-		<!-- 					</div> -->
-		<!-- 					<div class="form-group"> -->
-		<!-- 						<div class="row"> -->
-		<!-- 							<div class="col-md-4"> -->
-		<!-- 								<label for="newStudentEmail">Email:</label> -->
-		<!-- 							</div> -->
-		<!-- 							<div class="col-md-8"> -->
-		<!-- 								<input type="email" class="form-control" id="newStudentEmail"> -->
-		<!-- 							</div> -->
-		<!-- 						</div> -->
-		<!-- 					</div> -->
-		<!-- 					<div class="row"> -->
-		<!-- 						<div class="col-md-4"></div> -->
-		<!-- 						<div class="col-md-8 d-flex justify-content-end align-items-center " style="margin-top: 10px;"> -->
-		<!-- 							<input type="submit" class="btn btn-primary" value="Add Student" /> -->
-		<!-- 						</div> -->
-		<!-- 					</div> -->
-		<%-- 				</form> --%>
-		<!-- 			</div> -->
+    <div class="row">
+        <!-- New Student Form -->
+        <div class="col-md-6">
+            <h5>New Student</h5>
+            <form:form action="/saveNewStudent/${course.id}" method="POST" modelAttribute="newStudent">
+                <div class="form-group">
+                    <form:input type="hidden" path="password" class="form-control" />
+                    <form:errors path="password" cssClass="text-danger" />
+                </div>
+                <div class="form-group">
+                    <form:input type="hidden" path="confirmPW" class="form-control" />
+                    <form:errors path="confirmPW" cssClass="text-danger" />
+                </div>
+                <div class="form-group">
+                    <form:label path="userName">Student Name:</form:label>
+                    <form:input type="text" path="userName" class="form-control" />
+                    <form:errors path="userName" cssClass="text-danger" />
+                </div>
+                <div class="form-group">
+                    <form:label path="email">Email:</form:label>
+                    <form:input type="email" path="email" class="form-control" />
+                    <form:errors path="email" cssClass="text-danger" />
+                </div>
+                <button type="submit" class="btn btn-primary">Add new student</button>
+            </form:form>
+        </div>
 
-
-
-		<form:form action="/enrollStudent/${course.id}" method="POST" >
-			<table>
-				<tr>
-					<select name="student_id">
-						<c:forEach var="student" items="${notEnrolledStudents}">
-							<option value="${student.id}" >${student.userName} - ${student.email}</option>
-						</c:forEach>
-					</select>
-				</tr>
-				<tr>
-					<td><input type="submit" value="Add new student" /></td>
-				</tr>
-			</table>
-		</form:form>
-
-		<div class="col-md-6">
-			<form>
-				<h5>Existing Student</h5>
-				<div class="form-group">
-					<div class="row">
-						<div class="col-md-4">
-							<label for="existingStudent">Choose Student</label>
-						</div>
-						<div class="col-md-8">
-							<select class="form-control" id="existingStudent">
-								<option>alan - okay@gmail.com</option>
-								<option>jim - jim@gmail.com</option>
-							</select>
-						</div>
-
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-4"></div>
-					<div class="col-md-8 d-flex justify-content-end align-items-center">
-						<input type="submit" class="btn btn-primary" value="Add Student" />
-					</div>
-				</div>
-			</form>
-		</div>
-	</div>
-	</div>
-
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-	<script
-		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-</body>
+        <!-- Existing Student Form -->
+        <div class="col-md-6">
+            <h5>Existing Student</h5>
+            <form:form action="/enrollStudent/${course.id}" method="POST">
+                <div class="form-group">
+                    <select name="student_id" class="form-control">
+                        <c:forEach var="student" items="${notEnrolledStudents}">
+                            <option value="${student.id}">${student.userName} - ${student.email}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Add existing student</button>
+            </form:form>
+        </div>
+    </div>
+</div>
+		
 </html>
