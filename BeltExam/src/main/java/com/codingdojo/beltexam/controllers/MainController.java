@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.codingdojo.beltexam.models.Course;
 import com.codingdojo.beltexam.models.User;
@@ -107,16 +108,18 @@ public class MainController {
 	@GetMapping("/classes/{id}")
 	public String showCourse(@PathVariable("id") Long id, 
 			HttpSession session, Model model) {
+		Course myCourse = courseServ.getCourseById(id);	
 		model.addAttribute("course", courseServ.getCourseById(id));
+		model.addAttribute("notEnrolledStudents",userServ.getStudentNotEnrolledCourse(myCourse));
 		// Initialise Student obj
 		User newStudent = new User();
 		newStudent.setPassword("student");
 		newStudent.setConfirmPW("student");
 		model.addAttribute("newStudent", newStudent);
+		
 		return "show.jsp";
 	}
 
-	
 	@PostMapping("/saveNewStudent/{course_id}")
 	public String createNewStudent(@PathVariable("course_id") Long course_id,
 			@Valid @ModelAttribute("newStudent") User newStudent, BindingResult result, Model model) {
@@ -131,14 +134,18 @@ public class MainController {
 //			newStudent.setConfirmPW("student");
 			User student = userServ.createUser(newStudent);
 			Course course = courseServ.getCourseById(course_id);
-			courseServ.addStudent(course, student, result);
+			courseServ.addStudent(course, student);
 			return "redirect:/classes/" + course_id;
 		}
 	}
 
-	@PostMapping("/enrollStudent")
-	public String enrollStudentToCourse() {
-		return "redirect:/show";
+	@PostMapping("/enrollStudent/{course_id}")
+	public String enrollStudentToCourse(@PathVariable("course_id") Long course_id,
+	@RequestParam("student_id") Long student_id) {
+		User student = userServ.getUserById(student_id);
+		Course course = courseServ.getCourseById(course_id);
+		courseServ.addStudent(course, student);
+		return "redirect:/classes/" + course_id;
 	}
 
 //	@GetMapping("/new")

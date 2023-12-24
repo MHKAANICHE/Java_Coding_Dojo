@@ -52,7 +52,7 @@ body {
 		<h5>Students</h5>
 		<ul>
 			<c:forEach var="student" items="${course.students}">
-				<li>${student.userName}- ${student.email}</li>
+				<li>${student.userName}-${student.email}</li>
 			</c:forEach>
 			<li>Naomi - onaimo@gmail.com</li>
 			<li>Jim - jim@gmail.com</li>
@@ -63,23 +63,24 @@ body {
 		<h5>Add Students to Course</h5>
 		<br>
 		<h5>New Student</h5>
-		<form:form action="/saveNewStudent/${course.id}" method="POST" modelAttribute="newStudent">
+		<form:form action="/saveNewStudent/${course.id}" method="POST"
+			modelAttribute="newStudent">
 			<table>
-			<tr>
-				<td><form:input type="hidden" path="password" />
-				<form:errors path="password" ></form:errors>
-				<td><form:input type="hidden" path="confirmPW" />
-				<form:errors path="confirmPW" ></form:errors>
-			</tr>
+				<tr>
+					<td><form:input type="hidden" path="password" /> <form:errors
+							path="password"></form:errors>
+					<td><form:input type="hidden" path="confirmPW" /> <form:errors
+							path="confirmPW"></form:errors>
+				</tr>
 				<tr>
 					<td><form:label path="userName">Student Name:</form:label></td>
-					<td><form:input type="text" path="userName" />
-					<form:errors path="userName" ></form:errors></td>
+					<td><form:input type="text" path="userName" /> <form:errors
+							path="userName"></form:errors></td>
 				</tr>
 				<tr>
 					<td><form:label path="email">Email:</form:label></td>
-					<td><form:input type="email" path="email" />
-					<form:errors path="email" ></form:errors></td>
+					<td><form:input type="email" path="email" /> <form:errors
+							path="email"></form:errors></td>
 				</tr>
 				<tr>
 					<td><</td>
@@ -120,6 +121,23 @@ body {
 		<!-- 					</div> -->
 		<%-- 				</form> --%>
 		<!-- 			</div> -->
+
+
+
+		<form:form action="/enrollStudent/${course.id}" method="POST" >
+			<table>
+				<tr>
+					<select name="student_id">
+						<c:forEach var="student" items="${notEnrolledStudents}">
+							<option value="${student.id}" >${student.userName} - ${student.email}</option>
+						</c:forEach>
+					</select>
+				</tr>
+				<tr>
+					<td><input type="submit" value="Add new student" /></td>
+				</tr>
+			</table>
+		</form:form>
 
 		<div class="col-md-6">
 			<form>

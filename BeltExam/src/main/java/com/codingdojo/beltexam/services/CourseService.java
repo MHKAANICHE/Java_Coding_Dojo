@@ -72,14 +72,12 @@ public class CourseService {
 		return courseRepository.findByStudentsNotContains(student);
 	}
 
-	public void addStudent(Course course, User student, BindingResult result) {
+	public void addStudent(Course course, User student) {
 		List<User> students = course.getStudents();
 		if (!students.contains(student)) {
 			students.add(student);
 			course.setStudents(students);
 			courseRepository.save(course);
-		} else {
-			result.rejectValue("course", "existingStudent", "Student have already enrolled this course!");
 		}
 	}
 }
