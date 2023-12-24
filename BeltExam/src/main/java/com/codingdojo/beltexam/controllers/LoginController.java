@@ -17,51 +17,54 @@ import jakarta.validation.Valid;
 
 @Controller
 public class LoginController {
+
 	@Autowired
 	private UserService userServ;
 
-	// Home page : one single page for two form (login & registration)
 	@GetMapping("/")
-	public String index(@ModelAttribute("newUser") User newUser, @ModelAttribute("newLogin") LoginUser newLogin) {
+	public String login(@ModelAttribute("newRegister") User newRegister, 
+	@ModelAttribute("newLoggin") User newLoggin) {
 		return "login.jsp";
 	}
 
-	// Login
-	@PostMapping("/login")
-	public String login(@Valid @ModelAttribute("newLogin") LoginUser newLogin, BindingResult result, Model model,
-			HttpSession session) {
-		User user = userServ.login(newLogin, result);
+	@PostMapping("/register")
+	public String userRegister(@Valid @ModelAttribute("newRegister") User newRegister,
+	BindingResult result,
+	Model model, HttpSession session) {
+		// check registration :
+		User potentialUser = userServ.userRegistration(newRegister, result);
+		// check errors:
 		if (result.hasErrors()) {
-			model.addAttribute("newUser", new User());
+			// if user decide to login	
+			model.addAttribute("newLoggin", new LoginUser());		
 			return "login.jsp";
+		} else {
+			session.setAttribute("user_session", potentialUser);
+			return "redirect:/classes";
 		}
-		session.setAttribute("user_id", user.getId());
-		return "redirect:/dash";
 	}
 
-	// Logout
+	@PostMapping("/loggin")
+	public String userLogin(@Valid @ModelAttribute("newLoggin") LoginUser newLoggin,
+	 BindingResult result, 
+	Model model,HttpSession session) {
+		// check loggin :
+		User potentialUser = userServ.userLogin(newLoggin, result);
+		// check errors:
+		if (result.hasErrors()) {
+			// if user decide to register	
+			model.addAttribute("newRegister", new User());
+			return "login.jsp";
+		} else {
+			session.setAttribute("user_session", potentialUser);
+			return "redirect:/classes";
+		}
+	}
+
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
 		return "redirect:/";
-	}
-
-	// Register 
-	@PostMapping("/register")
-	public String register(@Valid @ModelAttribute("newUser") User newUser, BindingResult result, Model model,
-			HttpSession session) {
-		userServ.register(newUser, result);
-		if (result.hasErrors()) {
-			model.addAttribute("newLogin", new LoginUser());
-			return "login.jsp";
-		}
-		session.setAttribute("user_id", newUser.getId());
-		return "redirect:/dash";
-	}
-	
-	@GetMapping("/dash")
-	public String logged() {
-	return "index.jsp";
 	}
 
 }

@@ -1,75 +1,100 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!-- c:out ; c:forEach etc. --> 
-<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
-<!-- Formatting (dates) --> 
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"  %>
-<!-- form:form -->
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<!-- for rendering errors on PUT routes -->
-<%@ page isErrorPage="true" %>
-<!DOCTYPE html>
-<html>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page isErrorPage="true"%>
+<!doctype html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-    <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/main.css"> <!-- change to match your file/naming structure -->
-    <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/js/app.js"></script><!-- change to match your file/naming structure -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Project Manager</title>
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
+<!-- Your local CSS -->
+<link rel="stylesheet" href="/css/style.css" />
+<style>
+/* Any additional styles specific to this page */
+body {
+	background-color: #ACA9CB;
+}
+</style>
 </head>
 <body>
-   <div class="container">
-
-		<!-- REGISTER A NEW USER  -->
-		<!-- bring in the newUser empty Object -->
-		<div class="login-reg-main border-round give-me-space-up-down">
-			<h3>Register:</h3>
-			<form:form action="/register" 
-			method="post" modelAttribute="newUser">
-				<div class="form-group">
-					<label>User Name:</label>
-					<form:input path="userName" class="form-control" />
-					<form:errors path="userName" class="text-danger" />
-				</div>
-				<div class="form-group">
-					<label>Email:</label>
-					<form:input path="email" class="form-control" />
-					<form:errors path="email" class="text-danger" />
-				</div>
-				<div class="form-group">
-					<label>Password:</label>
-					<form:password path="password" class="form-control" />
-					<form:errors path="password" class="text-danger" />
-				</div>
-				<div class="form-group">
-					<label>Confirm Password:</label>
-					<form:password path="confirm" class="form-control" />
-					<form:errors path="confirm" class="text-danger" />
-				</div>
-				<input type="submit" value="Register" class="btn btn-primary" />
-			</form:form>
-		</div>
-
-		<!-- LOGIN -->
-		<!-- newLogin object will touch the model to validate only -->
-		<div class="login-reg-main border-round">
-			<h3>Login:</h3>
-			<form:form action="/login" method="post" 
-			modelAttribute="newLogin">
-				<div class="form-group">
-					<label>Email:</label>
-					<form:input path="email" class="form-control" />
-					<form:errors path="email" class="text-danger" />
-				</div>
-				<div class="form-group">
-					<label>Password:</label>
-					<form:password path="password" class="form-control" />
-					<form:errors path="password" class="text-danger" />
-				</div>
-				<input type="submit" value="Login" class="btn btn-success" />
-			</form:form>
-		</div>
-
+	<div class="container justify-content-center align-item-center ">
+		<h1 style="color: magenta;">Course Platform - Instructor</h1>
 	</div>
+
+	<div class="container">
+		<!-- 	<div class="container-fluid"> -->
+		<div class="row">
+			<!-- 		<div class="flex-container"> -->
+
+			<!-- Login Form Column -->
+			<div class="col-md-6 form-container">
+				<h1>New Instructor</h1>
+				<table>
+					<form:form action="/register" method="POST"
+						modelAttribute="newRegister">
+						<tr>
+							<td><form:label path="userName">Enter your user name:</form:label></td>
+							<td><form:input type="text" path="userName" /> <form:errors
+									class="error" path="userName" /></td>
+						</tr>
+						<tr>
+							<td><form:label path="email">Enter your email:</form:label></td>
+							<td><form:input type="email" path="email" /> <form:errors
+									class="error" path="email" /></td>
+						</tr>
+						<tr>
+							<td><form:label path="password">Enter your password:</form:label></td>
+							<td><form:input type="" path="password" /> <form:errors
+									class="error"  path="password" /></td>
+						</tr>
+						<tr>
+							<td><form:label path="confirmPW">Confirm your password:</form:label></td>
+							<td ><form:input type="" path="confirmPW" /> <form:errors
+								class="error" path="confirmPW" /></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td class="d-flex justify-content-end"><input type="submit"
+								value="Register" class="btn btn-primary" /></td>
+						</tr>
+					</form:form>
+				</table>
+			</div>
+
+			<!-- Register Form Column -->
+			<div class="col-md-6 form-container">
+				<h1>Log in</h1>
+				<table>
+					<form:form action="/loggin" method="POST"
+						modelAttribute="newLoggin">
+						<tr>
+							<td><form:label path="email">Enter your email:</form:label></td>
+							<td><form:input type="text" path="email" /> <form:errors
+									class="error" path="email" /></td>
+						</tr>
+						<tr>
+							<td><form:label path="password">Enter your password:</form:label></td>
+							<td><form:input type="" path="password" /> <form:errors
+									class="error" path="password" /></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td class="d-flex justify-content-end"><input type="submit"
+								value="Login" class="btn btn-success" /></td>
+						</tr>
+					</form:form>
+				</table>
+			</div>
+
+		</div>
+	</div>
+
+	<!-- For any Bootstrap that uses JS -->
+	<script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>
